@@ -8,7 +8,7 @@ var cors = require('cors');
 var app = express();
 
 var port = process.env.PORT || 3000;
-mongoose.connect(process.env.MONGOLAB_URI, { useNewUrlParser: true });
+mongoose.connect('mongodb://admin:admin1234@ds039281.mlab.com:39281/ivibear', { useNewUrlParser: true });
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
