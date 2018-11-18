@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 
 var cors = require('cors');
 
+require('./models/UrlShorten');
+
 var app = express();
 
 var port = process.env.PORT || 3000;
