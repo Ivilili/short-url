@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 require('./models/UrlShorten');
+require('./routes/urlshorten')(app);
 
 var app = express();
 
