@@ -10,6 +10,7 @@ require('./models/UrlShorten');
 var app = express();
 
 var port = process.env.PORT || 3000;
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://admin:admin1234@ds039281.mlab.com:39281/ivibear', { useNewUrlParser: true });
 
 app.use(cors());
