@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var urlShortSchema = new Schema({
+const urlShortSchema = new Schema({
 	originalUrl: String,
 	urlCode: String,
 	shortUrl: String,

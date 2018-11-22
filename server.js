@@ -1,16 +1,16 @@
-var express = require('express');
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+const express = require('express');
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-var cors = require('cors');
+const cors = require('cors');
 
 require('./models/UrlShorten');
-require('./routes/urlshorten')(app);
+require('./routes/urlshorten');
 
-var app = express();
+const app = express();
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://admin:admin1234@ds039281.mlab.com:39281/ivibear', { useNewUrlParser: true });
 

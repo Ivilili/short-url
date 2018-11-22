@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
-var validUrl = require('valid-url');
-var UrlShorten = mongoose.model('UrlShorten');
-var shortid = require('shortid');
-var errorUrl = 'http://localhost/error';
+const mongoose = require('mongoose');
+const validUrl = require('valid-url');
+const UrlShorten = mongoose.model('UrlShorten');
+const shortid = require('shortid');
+const errorUrl = 'http://localhost/error';
 module.exports = (app) => {
 	//GET API for redirecting to Orignial URL
 	app.get('/api/item/:code', async (req, res) => {
-		var urlCode = req.params.code;
-		var item = await UrlShorten.findOne({ urlCode: urlCode });
+		const urlCode = req.params.code;
+		const item = await UrlShorten.findOne({ urlCode: urlCode });
 		if (item) {
 			return res.redirect(item.originalUrl);
 		} else {
@@ -16,7 +16,7 @@ module.exports = (app) => {
 	});
 	//POST API for creating short url from Original URL
 	app.post('/api/item', async (req, res) => {
-		var { originalUrl, shortBaseUrl } = req.body;
+		const { originalUrl, shortBaseUrl } = req.body;
 		if (validUrl.isUri(originalUrl)) {
 			try {
 				const item = await UrlShorten.findOne({ originalUrl: originalUrl });
@@ -24,7 +24,7 @@ module.exports = (app) => {
 					res.status(200).json(item);
 				} else {
 					shortUrl = shortBaseUrl + '/' + urlCode;
-					var item = new UrlShorten({
+					const item = new UrlShorten({
 						originalUrl,
 						shortUrl,
 						urlCode,
