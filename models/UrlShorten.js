@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//change database...don't need mlab
+
 const urlShortSchema = new Schema(
 	{
 		originalUrl: String,
