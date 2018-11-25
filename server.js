@@ -2,13 +2,9 @@ const express = require('express');
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const mongoURL = 'mongodb://localhost/url-shortener';
-const connectOptions = {
-	keepAlive: true,
-	reconnectTries: Number.MAX_VALUE
-};
 const bodyParser = require('body-parser');
 const validUrl = require('valid-url');
-const UrlShorten = mongoose.model('UrlShorten');
+//const UrlShorten = mongoose.model('UrlShorten');
 const shortid = require('shortid');
 const errorUrl = 'http://localhost/error';
 const cors = require('cors');
@@ -20,10 +16,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(mongoURL, connectOptions, (err, db) => {
-	if (err) console.log('Error', err);
-	console.log('Connected to MongoDB');
-});
+mongoose.connect(mongoURL, { useNewUrlParser: true });
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
