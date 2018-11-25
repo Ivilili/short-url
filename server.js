@@ -1,6 +1,11 @@
 const express = require('express');
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
+const mongoURL = 'mongodb://localhost/url-shortener';
+const connectOptions = {
+	keepAlive: true,
+	reconnectTries: Number.MAX_VALUE
+};
 const bodyParser = require('body-parser');
 const validUrl = require('valid-url');
 const UrlShorten = mongoose.model('UrlShorten');
@@ -15,7 +20,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://admin:admin1234@ds039281.mlab.com:39281/ivibear', { useNewUrlParser: true });
+mongoose.connect(mongoURL, connectOptions, (err, db) => {
+	if (err) console.log('Error', err);
+	console.log('Connected to MongoDB');
+});
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
