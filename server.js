@@ -1,7 +1,7 @@
 const express = require('express');
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-const mongoURL = 'mongodb://localhost/url-shortner';
+const mongoURL = 'mongodb://localhost:27017/url-short';
 const bodyParser = require('body-parser');
 const validUrl = require('valid-url');
 //const UrlShorten = mongoose.model('UrlShorten');
@@ -30,6 +30,7 @@ app.get('/', function(req, res) {
 
 app.get('/api/item/:code', async (req, res) => {
 	const urlCode = req.params.code;
+	console.log(urlCode);
 	const item = await UrlShorten.findOne({ urlCode: urlCode });
 	if (item) {
 		return res.redirect(item.originalUrl);
@@ -39,7 +40,7 @@ app.get('/api/item/:code', async (req, res) => {
 });
 
 //POST API for creating short url from Original URL
-app.post('/api/item', async (req, res) => {
+app.post('/api/shorturl/new/', async (req, res) => {
 	const { originalUrl, shortBaseUrl } = req.body;
 	if (validUrl.isUri(shortBaseUrl)) {
 	} else {
