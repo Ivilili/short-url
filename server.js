@@ -1,7 +1,7 @@
 const express = require('express');
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-const mongoURL = 'mongodb://localhost:27017/url-short';
+const mongoURL = 'mongodb://localhost/url-short';
 const bodyParser = require('body-parser');
 const validUrl = require('valid-url');
 //const UrlShorten = mongoose.model('UrlShorten');
@@ -28,34 +28,29 @@ app.get('/', function(req, res) {
 	res.sendFile(process.cwd() + '/views/index.html');
 });
 
-app.get('/api/item/:code', async (req, res) => {
-	const urlCode = req.params.code;
-	console.log(urlCode);
-	const item = await UrlShorten.findOne({ urlCode: urlCode });
-	if (item) {
-		return res.redirect(item.originalUrl);
-	} else {
-		return res.redirect(errorUrl);
-	}
+app.get('/api/new/:code(*)', (req, res) => {
+	let urlCode = req.params.code;
+	urlCode = shortid.generate();
+	return res.json({ urlCode });
 });
 
 //POST API for creating short url from Original URL
 app.post('/api/shorturl/new/', async (req, res) => {
 	const { originalUrl, shortBaseUrl } = req.body;
-	if (validUrl.isUri(shortBaseUrl)) {
-	} else {
-		return res.status(401).json('Invalid Base Url');
-	}
+	//if (validUrl.isUri(shortBaseUrl)) {
+	//} else {
+	//	return res.status(401).json('Invalid Base Url');
+	//}
 
 	const urlCode = shortid.generate();
 	if (validUrl.isUri(originalUrl)) {
 		try {
-			const item = await UrlShorten.findOne({ originalUrl: originalUrl });
+			let item = await UrlShorten.findOne({ originalUrl: originalUrl });
 			if (item) {
 				res.status(200).json(item);
 			} else {
 				shortUrl = shortBaseUrl + '/' + urlCode;
-				const item = new UrlShorten({
+				let item = new UrlShorten({
 					originalUrl,
 					shortUrl,
 					urlCode
@@ -69,11 +64,6 @@ app.post('/api/shorturl/new/', async (req, res) => {
 	} else {
 		return res.status(401).json('Invalid Original Url');
 	}
-});
-
-// first API endpoint...
-app.get('/api/hello', function(req, res) {
-	res.json({ greeting: 'hello API' });
 });
 
 app.listen(port, function() {
