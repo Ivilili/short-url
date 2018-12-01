@@ -19,6 +19,11 @@ mongoose.Promise = global.Promise;
 mongoose.connect(mongoURL, { useNewUrlParser: true });
 
 app.use(cors());
+//logger
+app.use('/', (req, res, next) => {
+	console.log(`${req.method}, ${req.path} - ${req.ip}`);
+	next();
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -28,9 +33,13 @@ app.get('/', function(req, res) {
 	res.sendFile(process.cwd() + '/views/index.html');
 });
 
-app.get('/api/new/:code(*)', (req, res) => {
-	let urlCode = req.params.code;
-	urlCode = shortid.generate();
+app.get('/api/new/:url(*)', (req, res) => {
+	if (validUrl.isUri(suspect)) {
+		console.log('Looks like an URI');
+	} else {
+		console.log('Not a URI');
+	}
+	let urlCode = req.params.url;
 	return res.json({ urlCode });
 });
 
