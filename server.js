@@ -33,6 +33,7 @@ app.get('/', function(req, res) {
 app.get('api/item/:url(*)', async (req, res) => {
 	const urlCode = req.params.url;
 	//return res.json({ urlCode });
+	console.log(urlCode);
 	const item = await UrlShorten.findOne({ urlCode: urlCode });
 	console.log(urlCode);
 	if (item) {
@@ -42,7 +43,7 @@ app.get('api/item/:url(*)', async (req, res) => {
 	}
 });
 
-app.post('/api/item', async (req, res) => {
+app.post('/api/shorturl/new', async (req, res) => {
 	const { originalUrl, shortBaseUrl } = req.body;
 	if (validUrl.isUri(shortBaseUrl)) {
 	} else {
