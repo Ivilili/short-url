@@ -1,0 +1,6 @@
+POST  http://localhost:5000/api/url/shorten
+Content-Type: application/json
+
+{
+    "longUrl": "https://www.amazon.com/JSAUX-Charger-Braided-Compatible-Samsung/dp/B076FPGWNZ/ref=sr_1_14?fst=as%3Aoff&pf_rd_i=16225007011&pf_rd_m=ATVPDKIKX0DER&pf_rd_p=74069509-93ef-4a3c-8dca-a9e3fa773a64&pf_rd_r=A1N4CYCYXWCVWYR992WY&pf_rd_s=merchandised-search-4&pf_rd_t=101&qid=1562763377&rnid=16225007011&s=computers-intl-ship&sr=1-14"
+}
